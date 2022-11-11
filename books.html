@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<style type="text/css">
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  background: #f4f4f4;
+}
+
+.list-wrapper {
+  padding: 15px;
+  overflow: hidden;
+}
+
+.list-item {
+  border: 1px solid #EEE;
+  background: #FFF;
+  margin-bottom: 10px;
+  padding: 10px;
+  box-shadow: 0px 0px 10px 0px #EEE;
+}
+
+.list-item h4 {
+  color: #FF7182;
+  font-size: 18px;
+  margin: 0 0 5px;  
+}
+
+.list-item p {
+  margin: 0;
+}
+
+.simple-pagination ul {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.simple-pagination li {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.simple-pagination li a,
+.simple-pagination li span {
+  color: #666;
+  padding: 5px 10px;
+  text-decoration: none;
+  border: 1px solid #EEE;
+  background-color: #FFF;
+  box-shadow: 0px 0px 10px 0px #EEE;
+}
+
+.simple-pagination .current {
+  color: #FFF;
+  background-color: #FF7182;
+  border-color: #FF7182;
+}
+
+.simple-pagination .prev.current,
+.simple-pagination .next.current {
+  background: #e04e60;
+}
+</style>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Library Management</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">Library Management System</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="books.html">Books</a>
+        </li>
+  
+        <li class="nav-item">
+          <a class="nav-link" href="contactUs.html">Contact Us</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" id="filter_users" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+<p id="demo"></p>
+<ul id="users-list">
+<div id="pagination-container"> </div>
+<script type="text/javascript">
+let users = [
+  'The C Programming Language --> Brian Kernighan; Dennis Ritchie, 1978 , Computer Science',
+  'The C++ Programming Language -->  Bjarne Stroustrup, 1985, Computer Science',
+  'Let Us C --> Yashavant Kanetkar, November 2004, Computer science',
+  'Harry Porter --> J.K.Rowling, 26 June 1997, Novel ',
+  'The Adventures of Sherlock Holmes --> Arthur Conan Doyle, 14 October 1892 ,Novel',
+  'The Sign of the Four --> Arthur Conan Doyle, February 1890, Novel ',
+  'The Valley of Fear --> Arthur Conan Doyle, 27 February 1915, Novel ',
+  'The Ink Black Heart --> J.K.Rowling, 30 August 2022, Novel',
+  'The Cuckoos Calling --> J.K.Rowling, 4 April 2013, Novel ',
+  'Unified software development process --> James E. Rumbaugh, 1999, Computer Science ',
+  'Object-oriented modeling and design with UML -->James E. Rumbaugh, 2005 , Computer Science ',
+  'Compiler Construction for Digital Computers --> David Gries, 1971, Computer Science',
+  'The Science of Programming --> David Gries, 1981, Computer Science',
+  'Being Mortal: Medicine and What Matters in the End --> Atul Gawande, 2014, Science',
+  'Silent Spring --> Rachel Carson , 1962, Science',
+  'A Brief History of Time --> Stephen Hawking, 1988, Science',
+  'George and the Big Bang --> Stephen Hawking, 2011, Science',
+  'Software Tools --> Brian Kernighan, 1976, Computer Science',
+  'Head First Java: Your Brain on Java --> Kathy Sierra , 1976, Java',
+  'Thinking in Java --> Bruce Eckel , 1956, Java',
+  'Sapiens: A Brief History of Humankind --> Yuval Noah Harari, 2011, History',
+  'Guns, Germs, and Steel --> Jared Diamond, 1997, History',
+  'The Guns of August --> Barbara W. Tuchman, 1965, History',
+  'Android App Development For Dummies --> Michael Burton,  20 February 2015, Android',
+  'Android Programming: Pushing the Limits --> Erik Hellman,  4 October 2013, Android'
+];
+
+ul = document.getElementById("users-list");
+
+let render_lists = function(lists){
+  let li = "";
+  for(index in lists){
+    li += "<li>" + lists[index] + "</li>";
+  }
+  ul.innerHTML = li;
+}
+
+render_lists(users);
+
+// lets filters it
+input = document.getElementById('filter_users');
+
+let filterUsers = function(event){
+  keyword = input.value.toLowerCase();
+  filtered_users = users.filter(function(user){
+        user = user.toLowerCase();
+       return user.indexOf(keyword) > -1; 
+  });
+  
+  render_lists(filtered_users);
+}
+
+input.addEventListener('keyup', filterUsers);
+
+
+</script>
+
+<script>
+var items = $(".list-wrapper .list-item");
+    var numItems = items.length;
+    var perPage = 4;
+
+    items.slice(perPage).hide();
+
+    $('#pagination-container').pagination({
+        items: numItems,
+        itemsOnPage: perPage,
+        prevText: "&laquo;",
+        nextText: "&raquo;",
+        onPageClick: function (pageNumber) {
+            var showFrom = perPage * (pageNumber - 1);
+            var showTo = showFrom + perPage;
+            items.hide().slice(showFrom, showTo).show();
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
